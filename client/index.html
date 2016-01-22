@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <!-- My style -->
-        <link href="css/style.css" rel="stylesheet" media="screen">
+        <link href="assets/css/style.css" rel="stylesheet" media="screen">
     </head>
     <body>
           <div class="container">
+              <div id="ba"></div>
             <nav class="navbar navbar-default">
               <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -20,9 +21,9 @@
                 </div>
                 <form class="navbar-form navbar-right" role="search">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Rechercher">
+                    <input type="text" id="searchedWord" class="form-control" placeholder="Rechercher">
                   </div>
-                  <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-default" onclick="getWordDescription()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </form>
               </div>
             </nav>
@@ -82,11 +83,11 @@
                 <p class="visible-md visible-lg">blabla blabla blabla blabla</p>
               </section>
             </div>
-
           </div>
+          <footer>
+              <script src="http://code.jquery.com/jquery.js"></script>
+              <script src="assets/js/bootstrap.min.js"></script>
+              <script src="assets/js/parser.js"></script>
+          </footer>
       </body>
-    <footer>
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-    </footer>
 </html>
