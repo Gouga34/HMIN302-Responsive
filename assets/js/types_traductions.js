@@ -8,7 +8,6 @@ var types = {
   "r_has_part" : "parties de [mot]",
   "r_isa" : "génériques",
   "r_agent-1" : "que peut faire [mot] ? (agent)",
-  "r_infopot" :  "informations sémantiques",
   "r_locution" : "locutions / termes proposés",
   "r_hypo" : "spécifiques",
   "r_raff_sem" : "raffinement(s) sémantique(s)",

@@ -64,15 +64,20 @@ function isElementNotAlreadyWritten(key) {
 
 function writeElements(elements, typeOfElements, rowId, title) {
   datasToWrite = "<section class=\"col-lg-3 col-sm-3\">";
-  datasToWrite += "<p class=\"text-center\">" + title + "</p>";
+  datasToWrite += "<h3 class=\"text-center\">" + title + "</h3>";
   datasToWrite += "<p>";
+
+  if (Object.size(elements) > 10) {
+    datasToWrite += addSeeMoreButton(typeOfElements);
+  }
 
   numberOfElementsDisplayed = 0;
 
   for (key in elements) {
     numberOfElementsDisplayed++;
+
     if(numberOfElementsDisplayed == 10) {
-      datasToWrite += addSeeMoreButton(typeOfElements);
+      datasToWrite += "<section id=\"" + typeOfElements + "Collapse\" class=\"collapse\">";
     }
 
     datasToWrite += elements[key].val + ", ";
@@ -88,14 +93,13 @@ function writeElements(elements, typeOfElements, rowId, title) {
 function addSeeMoreButton(key) {
   datasToWrite = "<a class=\"btn btn-default btn-circle\" href=\"#" + key + "Collapse\" data-toggle=\"collapse\" aria-expanded=\"false\" aria-controls=\"" + key + "Collapse\">"+
                         "<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span></a>";
-  datasToWrite += "<section id=\"" + key + "Collapse\" class=\"collapse\">";
 
   return datasToWrite;
 }
 
 function printWord(word, rowId) {
   datasToWrite = "<section class=\"col-lg-6 col-sm-6\"> "
-                    + "<p class=\"text-center\">" + word + "</p> "
+                    + "<h3 class=\"text-center\">" + word + "</h3> "
                     +" </section>";
   addElementToDivById(rowId, datasToWrite);
 }
@@ -105,7 +109,7 @@ function printDefinitions(defs) {
     idRow = "rowDefinitions";
     addRow(idRow);
     datasToWrite = "<section class=\"col-lg-12 col-md-12\">";
-    datasToWrite += "<p class=\"text-center\"> Définitions </p>";
+    datasToWrite += "<h3 class=\"text-center\"> Définitions </h3>";
 
     for (key in defs) {
       datasToWrite += "<p>" + defs[key] + "</p>";
@@ -118,7 +122,7 @@ function printDefinitions(defs) {
 function printGenders(genders, rowId) {
   if (Object.size(genders) > 0) {
     datasToWrite = "<section class=\"col-lg-6 col-sm-6 col-xs-6 align-center\">";
-    datasToWrite += "<p>Opposé(s) : ";
+    datasToWrite += "<p><strong>Opposé(s)</strong> : ";
     for (key in genders) {
       datasToWrite += genders[key].val + ",  ";
     }
