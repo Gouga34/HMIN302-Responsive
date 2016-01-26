@@ -32,7 +32,7 @@ function getMot($xmlDoc, $result) {
 		$poids = ($element->hasAttribute('poids')) ? $element->getAttribute('poids') : "";
 		$id = ($element->hasAttribute('id')) ? $element->getAttribute('id') : "";
 
-		$result["mot"] = array('value' => $value, 'poids' => $poids, 'id' => $id);
+		$result["mot"] = array('val' => $value, 'poids' => $poids, 'id' => $id);
 	}
 
 	return $result;
@@ -71,8 +71,7 @@ function getDefinitions($xmlDoc, $result) {
 function getRel($relElement) {
 	$res = array();
 
-	$res['value'] = $relElement->nodeValue;
-	$res['type'] = ($relElement->hasAttribute('type')) ? $relElement->getAttribute('type') : "";
+	$res['val'] = $relElement->nodeValue;
 	$res['poids'] = ($relElement->hasAttribute('poids')) ? $relElement->getAttribute('poids') : "";
 	$res['tid'] = ($relElement->hasAttribute('tid')) ? $relElement->getAttribute('tid') : "";
 	$res['te'] = ($relElement->hasAttribute('te')) ? $relElement->getAttribute('te') : "";
@@ -89,7 +88,10 @@ function getRels($xmlDoc, $bloc, $result) {
 
 		$relElements = $element->getElementsByTagName('rel');
 		foreach ($relElements as $relElement) {
-			$relations[] = getRel($relElement);
+			if ($relElement->hasAttribute('type')) {
+				$type = $relElement->getAttribute('type');
+				$relations[$type][] = getRel($relElement);
+			}
 		}
 
 		$result[$bloc] = $relations;
