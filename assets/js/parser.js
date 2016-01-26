@@ -47,8 +47,10 @@ function printOtherDatas(datas) {
       nbDatasInRow = 0;
     }
 
-    if(isElementNotAlreadyWritten(key)) {
-      writeElements(datas[key], key, rowId);
+    if (isElementNotAlreadyWritten(key)) {
+      if (typeof types[key] != 'undefined') {
+        writeElements(datas[key], key, rowId, types[key]);
+      }
     }
 
     nbDatasInRow++;
@@ -59,10 +61,10 @@ function isElementNotAlreadyWritten(key) {
   return key != "mot" && key != "def" && key != "r_fem" && key != "mot-formate";
 }
 
-function writeElements(elements, typeOfElements, rowId) {
+function writeElements(elements, typeOfElements, rowId, title) {
   //TODO aller récup équivalent typeOfElements dans tableau contenant ttes les trads
   datasToWrite = "<section class=\"col-lg-3 col-sm-3\">";
-  datasToWrite += "<p class=\"text-center\">" + typeOfElements + "</p>";
+  datasToWrite += "<p class=\"text-center\">" + title + "</p>";
   datasToWrite += "<p>";
 
   numberOfElementsDisplayed = 0;
@@ -81,12 +83,11 @@ function writeElements(elements, typeOfElements, rowId) {
   }
   datasToWrite += "</p>";
   addElementToDivById(rowId, datasToWrite);
-
-
 }
 
 function addSeeMoreButton(key) {
-  datasToWrite = "<a class=\"btn btn-primary\" href=\"#" + key + "Collapse\" data-toggle=\"collapse\" aria-expanded=\"false\" aria-controls=\"" + key + "Collapse\"><span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span></a>";
+  datasToWrite = "<a class=\"btn btn-default btn-circle\" href=\"#" + key + "Collapse\" data-toggle=\"collapse\" aria-expanded=\"false\" aria-controls=\"" + key + "Collapse\">"+
+                        "<span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span></a>";
   datasToWrite += "<section id=\"" + key + "Collapse\" class=\"collapse\">";
 
   return datasToWrite;
@@ -114,12 +115,12 @@ function printDefinitions(defs) {
 
 function printGenders(genders, rowId) {
   datasToWrite = "<section class=\"col-lg-6 col-sm-6 col-xs-6 align-center\">";
-  datasToWrite += "<p class=\"text-center\">Opposé</p>";
+  datasToWrite += "<p>Opposé(s) : ";
   for (key in genders) {
-    datasToWrite += "<p>" + genders[key].val + "</p>";
+    datasToWrite += genders[key].val;
   }
 
-  datasToWrite += "</section>";
+  datasToWrite += "</p></section>";
   addElementToDivById(rowId, datasToWrite);
 }
 
