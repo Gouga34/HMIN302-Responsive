@@ -14,8 +14,7 @@ function getStringBetweenTwoDelims($startDelim, $text, $endDelim) {
 }
 
 function writeContentToFile($content, $filename) {
-	unlink($filename);
-	$file = fopen($filename, "a+");
+	$file = fopen($filename, "w");
 	
 	fputs($file, "<?xml version=\"1.0\"?>\n");
 	fputs($file, utf8_encode($content));
