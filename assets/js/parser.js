@@ -65,11 +65,31 @@ function writeElements(elements, typeOfElements, rowId) {
   datasToWrite += "<p class=\"text-center\">" + typeOfElements + "</p>";
   datasToWrite += "<p>";
 
+  numberOfElementsDisplayed = 0;
+
   for (key in elements) {
+    numberOfElementsDisplayed++;
+    if(numberOfElementsDisplayed == 10) {
+      datasToWrite += addSeeMoreButton(typeOfElements);
+    }
+
     datasToWrite += elements[key].val + ", ";
+  }
+
+  if (numberOfElementsDisplayed >= 10) {
+    datasToWrite += "</section>";
   }
   datasToWrite += "</p>";
   addElementToDivById(rowId, datasToWrite);
+
+
+}
+
+function addSeeMoreButton(key) {
+  datasToWrite = "<a class=\"btn btn-primary\" href=\"#" + key + "Collapse\" data-toggle=\"collapse\" aria-expanded=\"false\" aria-controls=\"" + key + "Collapse\"><span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span></a>";
+  datasToWrite += "<section id=\"" + key + "Collapse\" class=\"collapse\">";
+
+  return datasToWrite;
 }
 
 function printWord(word, rowId) {
