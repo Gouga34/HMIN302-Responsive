@@ -89,11 +89,9 @@ function getRels($xmlDoc, $bloc, $result) {
 		foreach ($relElements as $relElement) {
 			if ($relElement->hasAttribute('type')) {
 				$type = $relElement->getAttribute('type');
-				$relations[$type][] = getRel($relElement);
+				$result[$type][] = getRel($relElement);
 			}
 		}
-
-		$result[$bloc] = $relations;
 	}
 
 	return $result;
