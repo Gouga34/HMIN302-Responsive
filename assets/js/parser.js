@@ -41,19 +41,20 @@ function printOtherDatas(datas) {
   idRow = "1";
   addRow(idRow);
   for (key in datas) {
-    if (nbDatasInRow == 2) {
-      addRow(nbRows.toString());
+    if (nbDatasInRow >= 4) {
       nbRows++;
+      idRow = nbRows.toString();
+      addRow(idRow);
+
       nbDatasInRow = 0;
     }
 
     if (isElementNotAlreadyWritten(key)) {
       if (typeof types[key] != 'undefined') {
-        writeElements(datas[key], key, rowId, types[key]);
+        writeElements(datas[key], key, idRow, types[key]);
+        nbDatasInRow++;
       }
     }
-
-    nbDatasInRow++;
   }
 }
 
@@ -62,7 +63,6 @@ function isElementNotAlreadyWritten(key) {
 }
 
 function writeElements(elements, typeOfElements, rowId, title) {
-  //TODO aller récup équivalent typeOfElements dans tableau contenant ttes les trads
   datasToWrite = "<section class=\"col-lg-3 col-sm-3\">";
   datasToWrite += "<p class=\"text-center\">" + title + "</p>";
   datasToWrite += "<p>";
@@ -101,27 +101,31 @@ function printWord(word, rowId) {
 }
 
 function printDefinitions(defs) {
-  idRow = "rowDefinitions";
-  addRow(idRow);
-  datasToWrite = "<section class=\"col-lg-6 col-md-6\">";
-  datasToWrite += "<p class=\"text-center\"> Définitions </p>";
+  if (Object.size(defs) > 0) {
+    idRow = "rowDefinitions";
+    addRow(idRow);
+    datasToWrite = "<section class=\"col-lg-12 col-md-12\">";
+    datasToWrite += "<p class=\"text-center\"> Définitions </p>";
 
-  for (key in defs) {
-    datasToWrite += "<p>" + defs[key] + "</p>";
+    for (key in defs) {
+      datasToWrite += "<p>" + defs[key] + "</p>";
+    }
+
+    addElementToDivById(idRow, datasToWrite);
   }
-
-  addElementToDivById(rowId, datasToWrite);
 }
 
 function printGenders(genders, rowId) {
-  datasToWrite = "<section class=\"col-lg-6 col-sm-6 col-xs-6 align-center\">";
-  datasToWrite += "<p>Opposé(s) : ";
-  for (key in genders) {
-    datasToWrite += genders[key].val;
-  }
+  if (Object.size(genders) > 0) {
+    datasToWrite = "<section class=\"col-lg-6 col-sm-6 col-xs-6 align-center\">";
+    datasToWrite += "<p>Opposé(s) : ";
+    for (key in genders) {
+      datasToWrite += genders[key].val + ",  ";
+    }
 
-  datasToWrite += "</p></section>";
-  addElementToDivById(rowId, datasToWrite);
+    datasToWrite += "</p></section>";
+    addElementToDivById(rowId, datasToWrite);
+  }
 }
 
 function addRow(idRow) {
@@ -129,6 +133,16 @@ function addRow(idRow) {
   $("#resultContainer").append(newRow);
 }
 
-function addElementToDivById(divId, datasToWrite) {
-  $("#"+rowId).append(datasToWrite);
+function addElementToDivById(idRow, datasToWrite) {
+  $("#"+idRow).append(datasToWrite);
 }
+
+Object.size = function(arr)
+{
+    var size = 0;
+    for (var key in arr)
+    {
+        if (arr.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
