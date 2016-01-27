@@ -22,17 +22,19 @@ function clearResultContainer() {
 }
 
 function printDatas(datas) {
-  printFirstRow(datas);
+  printWord(datas.mot.val);
+  printGenderRow(datas);
   printDefinitions(datas.def);
   printOtherDatas(datas);
 }
 
-function printFirstRow(datas){
-  rowId = "firstRow";
-  addRow(rowId);
+function printGenderRow(datas){
+  if (typeof datas.r_fem != 'undefined') {
+    rowId = "genderRow";
+    addRow(rowId);
 
-  printWord(datas.mot.val, rowId);
-  printGenders(datas.r_fem, rowId);
+    printGenders(datas.r_fem, rowId);
+  }
 }
 
 function printOtherDatas(datas) {
@@ -97,9 +99,11 @@ function addSeeMoreButton(key) {
   return datasToWrite;
 }
 
-function printWord(word, rowId) {
-  datasToWrite = "<section class=\"col-lg-6 col-sm-6\"> "
-                    + "<h3 class=\"text-center\">" + word + "</h3> "
+function printWord(word) {
+  rowId = "wordRow";
+  addRow(rowId)
+  datasToWrite = "<section class=\"col-lg-12 col-sm-12\"> "
+                    + "<h1 class=\"text-center\">" + word + "</h1> "
                     +" </section>";
   addElementToDivById(rowId, datasToWrite);
 }
@@ -111,9 +115,25 @@ function printDefinitions(defs) {
     datasToWrite = "<section class=\"col-lg-12 col-md-12\">";
     datasToWrite += "<h3 class=\"text-center\"> Définitions </h3>";
 
-    for (key in defs) {
-      datasToWrite += "<p>" + defs[key] + "</p>";
+    if (Object.size(defs) > 2) {
+      datasToWrite += addSeeMoreButton("definitions");
     }
+
+    numberOfElementsDisplayed = 0;
+
+    for (key in defs) {
+
+      if (numberOfElementsDisplayed > 2) {
+        datasToWrite += "<section id=\"definitionsCollapse\" class=\"collapse\">";
+      }
+
+      datasToWrite += "<p>" + defs[key] + "</p>";
+      numberOfElementsDisplayed++;
+    }
+    if (numberOfElementsDisplayed > 3) {
+      datasToWrite += "</section>";
+    }
+
 
     addElementToDivById(idRow, datasToWrite);
   }
