@@ -6,4 +6,25 @@
   font-size: 12px;
   line-height: 1.42;
   border-radius: 15px;
+  margin: 3px;
 }
+
+h1 {
+  color: #3FB9A9;
+  font-family: "fantasy";
+}
+
+h4 {
+  color: #3FB9A9;
+  font-family: "fantasy";
+}
+
+[class*="col-lg-3"]{
+    background-color: #E0F2EF;
+    /*border: 1px solid #3FB9A9;*/
+    box-shadow: 10px 10px 5px #656565;
+    border-radius: 10px;
+    min-height: 200px;
+    margin-top: 1px;
+    margin: 3%;
+ }

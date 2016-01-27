@@ -43,7 +43,7 @@ function printOtherDatas(datas) {
   idRow = "1";
   addRow(idRow);
   for (key in datas) {
-    if (nbDatasInRow >= 4) {
+    if (nbDatasInRow >= 3) {
       nbRows++;
       idRow = nbRows.toString();
       addRow(idRow);
@@ -66,7 +66,7 @@ function isElementNotAlreadyWritten(key) {
 
 function writeElements(elements, typeOfElements, rowId, title) {
   datasToWrite = "<section class=\"col-lg-3 col-sm-3\">";
-  datasToWrite += "<h3 class=\"text-center\">" + title + "</h3>";
+  datasToWrite += "<h4 class=\"text-center\">" + title + "</h4>";
   datasToWrite += "<p>";
 
   if (Object.size(elements) > 10) {
@@ -113,7 +113,7 @@ function printDefinitions(defs) {
     idRow = "rowDefinitions";
     addRow(idRow);
     datasToWrite = "<section class=\"col-lg-12 col-md-12\">";
-    datasToWrite += "<h3 class=\"text-center\"> Définitions </h3>";
+    datasToWrite += "<h4 > Définitions </h4>";
 
     if (Object.size(defs) > 2) {
       datasToWrite += addSeeMoreButton("definitions");
@@ -134,7 +134,6 @@ function printDefinitions(defs) {
       datasToWrite += "</section>";
     }
 
-
     addElementToDivById(idRow, datasToWrite);
   }
 }
@@ -142,7 +141,7 @@ function printDefinitions(defs) {
 function printGenders(genders, rowId) {
   if (Object.size(genders) > 0) {
     datasToWrite = "<section class=\"col-lg-6 col-sm-6 col-xs-6 align-center\">";
-    datasToWrite += "<p><strong>Opposé(s)</strong> : ";
+    datasToWrite += "<p><strong style=\"color: #3FB9A9\">" + types["r_fem"] + "</strong> : ";
     for (key in genders) {
       datasToWrite += genders[key].val + ",  ";
     }
@@ -153,7 +152,8 @@ function printGenders(genders, rowId) {
 }
 
 function addRow(idRow) {
-  newRow = "<div class=\"row\" id=\""+idRow+"\"></div>";
+  newRow = "<div class=\"row\" id=\""+idRow+"Row\"></div>";
+  newRow += "<div id="+idRow+"></div>";
   $("#resultContainer").append(newRow);
 }
 
